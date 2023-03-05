@@ -24,6 +24,7 @@ async function run(){
          const fruitsCollection = client.db('earthlyDelights').collection('fruits');
          const indoorsCollection = client.db('earthlyDelights').collection('indoors');
          const bonsaiCollection = client.db('earthlyDelights').collection('bonsai');
+         const addedProductsCollection = client.db('earthlyDelights').collection('addedProducts');
 
          app.get('/products', async(req, res) => {
             const query = {};
@@ -52,6 +53,12 @@ async function run(){
             const query = {};
             const allBonsai = await bonsaiCollection.find(query).toArray();
             res.send(allBonsai);
+         })
+         
+         app.post('/addedProducts' , async(req, res) => {
+                 const addedProduct = req.body;
+                 const result = await productsCollection.insertOne(addedProduct);
+                 res.send(result);
          })
     }
     finally{
