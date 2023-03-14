@@ -40,6 +40,8 @@ function verifyJWT(req, res, next){
 async function run() {
    try {
       const productsCollection = client.db('earthlyDelights').collection('products');
+      const bestsellCollection = client.db('earthlyDelights').collection('bestSell');
+      const newarrivalCollection = client.db('earthlyDelights').collection('NewArrival');
       const flowersCollection = client.db('earthlyDelights').collection('flowers');
       const fruitsCollection = client.db('earthlyDelights').collection('fruits');
       const indoorsCollection = client.db('earthlyDelights').collection('indoors');
@@ -50,11 +52,22 @@ async function run() {
 
       const usersCollection = client.db('earthlyDelights').collection('users');
 
-      app.get('/products', async (req, res) => {
-        
+      app.get('/products', async (req, res) => {      
          const query = {};
          const allProducts = await productsCollection.find(query).toArray();
          res.send(allProducts);
+      })
+
+      app.get('/bestsell', async (req, res) => {      
+         const query = {};
+         const bestsell = await bestsellCollection.find(query).toArray();
+         res.send(bestsell);
+      })
+      
+      app.get('/newarrival', async (req, res) => {      
+         const query = {};
+         const bestsell = await newarrivalCollection.find(query).toArray();
+         res.send(bestsell);
       })
 
       app.get('/flowers', async (req, res) => {
